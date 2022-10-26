@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src", "routes", "models", "middleware", "controller", "app.ts"],
+  "exclude": ["node_modules"]
+}
