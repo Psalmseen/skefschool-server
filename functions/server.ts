@@ -58,3 +58,4 @@ export const connect = async () => {
 connect();
 
 export const handler = conn ? serverless(app) : () => null;
+// TODO Push the Authserver to git
