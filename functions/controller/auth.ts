@@ -326,5 +326,10 @@ export const uploadProfileImageController = async (
 
   user?.save();
   console.log('got here');
-  res.status(200).json({ message: 'Profile image upload was successfully' });
+  res
+    .status(200)
+    .json({
+      message: 'Profile image upload was successfully',
+      cookies: { ...req.cookies },
+    });
 };
