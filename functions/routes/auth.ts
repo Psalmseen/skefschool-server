@@ -11,6 +11,7 @@ import {
   addStudentController,
   removeSubjectController,
   uploadProfileImageController,
+  getStaffsController,
 } from '../controller/auth';
 import { isAuth, isAdmin, isStaff, isTeacher } from '../middleware/auth';
 const authRouter = express.Router();
@@ -36,5 +37,7 @@ authRouter.post('/remove-subject', isStaff, removeSubjectController);
 authRouter.post('/add-student', isTeacher, addStudentController);
 
 authRouter.post('/upload-profile-image', isStaff, uploadProfileImageController);
+
+authRouter.get('/staffs', isAdmin, getStaffsController);
 
 export default authRouter;

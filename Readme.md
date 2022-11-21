@@ -52,7 +52,7 @@
 ### Add Student **_/add-student_** [post]
 
 -Header - access token
--Body - name parentEmail
+-Body - name, parentEmail
 
 ### upload image **_/upload-profile-image_** [post]
 

@@ -35,7 +35,6 @@ export const isAdmin = async (
 ) => {
   try {
     const accessToken = req.cookies.accessToken;
-
     const { userId } = jwt.verify(
       accessToken,
       process.env.JWT_ACCESS_TOKEN_KEY as Secret

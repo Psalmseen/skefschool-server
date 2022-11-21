@@ -326,10 +326,16 @@ export const uploadProfileImageController = async (
 
   user?.save();
   console.log('got here');
-  res
-    .status(200)
-    .json({
-      message: 'Profile image upload was successfully',
-      cookies: { ...req.cookies },
-    });
+  res.status(200).json({
+    message: 'Profile image upload was successfully',
+    cookies: { ...req.cookies },
+  });
+};
+
+export const getStaffsController = async (req: CRequest, res: Response) => {
+  const staffs = await User.find(
+    { role: 'staff' },
+    { password: 0, refreshToken: 0, role: 0 }
+  );
+  res.status(200).json({ message: 'Successful', data: staffs });
 };
