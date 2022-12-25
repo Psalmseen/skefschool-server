@@ -3,13 +3,14 @@ import path from 'path';
 import fs from 'fs';
 import User from '../models/user';
 import Clas from '../models/class';
+import Subject from '../models/subject';
 import Parent from '../models/parents';
 import Student from '../models/students';
 import { randomBytes } from 'crypto';
 import { nodeTransport } from '../utils/nodemailer';
 import bcrypt from 'bcryptjs';
 import jwt, { Secret } from 'jsonwebtoken';
-import { Response } from 'express';
+import { NextFunction, Response } from 'express';
 import { CRequest } from '../utils/interfaces';
 
 export const signupController = async (req: CRequest, res: Response) => {
@@ -156,6 +157,14 @@ export const createClassController = async (
   }
 };
 
+export const getClassController = async (
+  req: CRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const clas = await Clas.find();
+  res.status(200).json({ message: 'Success', data: clas });
+};
 export const addTeacherToClassController = async (
   req: CRequest,
   res: Response,
@@ -338,4 +347,41 @@ export const getStaffsController = async (req: CRequest, res: Response) => {
     { password: 0, refreshToken: 0, role: 0 }
   );
   res.status(200).json({ message: 'Successful', data: staffs });
+};
+
+export const getSubjectsController = async (
+  req: CRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const subjects = await Subject.find();
+    res.status(200).json({ message: ' Successful', data: subjects });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createSubjectController = async (
+  req: CRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { name } = req.body;
+    const isAlreadyExistingSubject = !!(await Subject.findOne({
+      name: name.toLowerCase(),
+    }));
+    if (isAlreadyExistingSubject) {
+      res.status(409).send('Subject with this name already exist');
+      return;
+    }
+    const subject = new Subject({
+      name: name.toLowerCase(),
+    });
+    subject.save();
+    res.status(201).json({ message: 'Subject successfully added' });
+  } catch (err) {
+    next(err);
+  }
 };

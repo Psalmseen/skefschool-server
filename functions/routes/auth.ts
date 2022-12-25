@@ -12,6 +12,9 @@ import {
   removeSubjectController,
   uploadProfileImageController,
   getStaffsController,
+  getClassController,
+  getSubjectsController,
+  createSubjectController,
 } from '../controller/auth';
 import { isAuth, isAdmin, isStaff, isTeacher } from '../middleware/auth';
 const authRouter = express.Router();
@@ -40,4 +43,11 @@ authRouter.post('/upload-profile-image', isStaff, uploadProfileImageController);
 
 authRouter.get('/staffs', isAdmin, getStaffsController);
 
+authRouter.get('/class', isAdmin, getClassController);
+
+authRouter.get('/subjects', /* isStaff, */ getSubjectsController);
+
+authRouter.post('create-subject', isAdmin, createSubjectController);
+
 export default authRouter;
+// Test the create subject controller and complete the frontend
